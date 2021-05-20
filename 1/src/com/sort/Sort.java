@@ -1,6 +1,6 @@
-import java.time.DateTimeException;
+package com.sort;
+
 import java.util.*;
-import java.util.stream.Stream;
 
 public class Sort {
 
@@ -24,7 +24,7 @@ public class Sort {
        System.out.println();
        System.out.println();
 
-       matout(sortvibor(c));
+       matout(selectionSort(c));
        System.out.println();
        System.out.println();
        matout(sortinsert(c));
@@ -83,7 +83,7 @@ public class Sort {
     }
 
 
-    public static int[][] sortvibor (int[][] a){
+    public static int[][] selectionSort(int[][] a){
 
 
         int ch = 0;
@@ -188,27 +188,23 @@ public class Sort {
         long t1= System.currentTimeMillis();
 
         int[] b = tom(a);
-        int i=b.length/2;
         int k;
-        while (i>0){
-
-            for (int j = i; j < b.length; j++) {
-                if (b[j]<b[j-i]){
-                    k=b[j];
-                    b[j]=b[j-i];
-                    b[j-i]=k;
+        int n = b.length;
+        for (int step = n / 2; step > 0; step /= 2) {
+            for (int i = step; i < n; i++) {
+                for (int j = i - step; j >= 0 && b[j] > b[j + step] ; j -= step) {
+                    int x = b[j];
+                    b[j] = b[j + step];
+                    b[j + step] = x;
                 }
             }
-                
-            i/=2;
         }
         int  ch = 0;
         int[][] d= new int[a.length][a[0].length];
 
-        for ( i = 0;i<d.length;i++){
+        for ( int i = 0;i<d.length;i++){
             for (int j = 0;j<d[0].length; j++){
-                d[i][j]=b[ch];
-                ch++;
+                d[i][j]=b[ch++];
             }
 
         }
